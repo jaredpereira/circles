@@ -27,13 +27,12 @@ contract CircleToken is StandardToken {
     uint lastMonth;
 
     function CircleToken(
-        uint256 _initialAmount,
         string _tokenName,
         uint8 _decimalUnits,
         uint _yearZero
+        address _owner
         ) {
-        owner = msg.sender;
-        totalSupply = _initialAmount;                        // Update total supply
+        owner = _owner;
         name = _tokenName;                                   // Set the name for display purposes
         decimals = _decimalUnits;                            // Amount of decimals for display purposes
         yearZero = _yearZero;
@@ -42,7 +41,7 @@ contract CircleToken is StandardToken {
     }
 
     function payout(){
-      for(i==0; i < (((now - yearZero)/1 month) - lastMonth); i++){
+      for(uint i==0; i =< (((now - yearZero)/1 month) - lastMonth); i++){
         balances[owner] += 1000 * ((10047 ** ((now - yearZero)/1 month))/(1000 ** ((now - yearZero)/1 month)))
       }
       lastMonth = (now - yearZero)/1 month
