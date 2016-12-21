@@ -11,11 +11,11 @@ contract CircleTokenFactory {
       yearZero = now;
     }
 
-    function createCircleToken(string _name, uint8 _decimals, string _symbol) returns (address) {
+    function createCircleToken(string _name) returns (address) {
 
-        CircleToken newToken = (new CircleToken( _name, _decimals, _symbol, yearZero, msg.sender));
+        CircleToken newToken = (new CircleToken( _name, yearZero, msg.sender));
         created[msg.sender].push(address(newToken));
-        isHumanToken[address(newToken)] = true;
+        isCircleToken[address(newToken)] = true;
         return address(newToken);
     }
 }
