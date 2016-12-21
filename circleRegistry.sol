@@ -1,3 +1,5 @@
+pragma solidity ^0.4.0;
+
 contract circlesRegistry
 {
   mapping (address => address[]) public trusted;
