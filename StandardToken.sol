@@ -1,6 +1,6 @@
 /*
 You should inherit from StandardToken or, for a token like you would want to
-deploy in something like Mist, see HumanStandardToken.sol.
+deploy in something like Mist, see CircleToken.sol.
 (This implements ONLY the standard functions and NOTHING else.
 If you deploy this, you won't have anything useful.)
 

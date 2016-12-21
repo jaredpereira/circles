@@ -1,31 +1,31 @@
-import "HumanStandardToken.sol";
+import "CircleToken.sol";
 
-contract HumanStandardTokenFactory {
+contract CircleTokenFactory {
 
     mapping(address => address[]) public created;
     mapping(address => bool) public isHumanToken; //verify without having to do a bytecode check.
-    bytes public humanStandardByteCode;
+    bytes public circleByteCode;
     uint yearZero;
 
-    function HumanStandardTokenFactory() {
-      //upon creation of the factory, deploy a HumanStandardToken (parameters are meaningless) and store the bytecode provably.
-      address verifiedToken = createHumanStandardToken(10000, "Verify Token", 3, "VTX");
-      humanStandardByteCode = codeAt(verifiedToken);
+    function CircleTokenFactory() {
+      //upon creation of the factory, deploy a CircleToken (parameters are meaningless) and store the bytecode provably.
+      address verifiedToken = createCircleToken(10000, "Verify Token", 3, "VTX");
+      circleByteCode = codeAt(verifiedToken);
       yearZero = now;
     }
 
     //verifies if a contract that has been deployed is a Human Standard Token.
     //NOTE: This is a very expensive function, and should only be used in an eth_call. ~800k gas
-    function verifyHumanStandardToken(address _tokenContract) returns (bool) {
+    function verifyCircleToken(address _tokenContract) returns (bool) {
       bytes memory fetchedTokenByteCode = codeAt(_tokenContract);
 
-      if (fetchedTokenByteCode.length != humanStandardByteCode.length) {
+      if (fetchedTokenByteCode.length != circleByteCode.length) {
         return false; //clear mismatch
       }
 
       //starting iterating through it if lengths match
       for (uint i = 0; i < fetchedTokenByteCode.length; i ++) {
-        if (fetchedTokenByteCode[i] != humanStandardByteCode[i]) {
+        if (fetchedTokenByteCode[i] != circleByteCode[i]) {
           return false;
         }
       }
@@ -51,9 +51,9 @@ contract HumanStandardTokenFactory {
       }
     }
 
-    function createHumanStandardToken(string _name, uint8 _decimals, string _symbol) returns (address) {
+    function createCircleToken(string _name, uint8 _decimals, string _symbol) returns (address) {
 
-        HumanStandardToken newToken = (new HumanStandardToken( _name, _decimals, _symbol, yearZero));
+        CircleToken newToken = (new CircleToken( _name, _decimals, _symbol, yearZero));
         created[msg.sender].push(address(newToken));
         isHumanToken[address(newToken)] = true;
         newToken.transfer(msg.sender, _initialAmount); //the factory will own the created tokens. You must transfer them.
